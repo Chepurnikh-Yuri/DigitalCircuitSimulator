@@ -8,24 +8,23 @@
 #include <utility>
 #include <concepts>
 
+#include "concepts.hpp"
+
 namespace Circuits 
 {
-    template<typename T>
-    concept Number = std::integral<T> || std::floating_point<T>;
-
-    template<Number N>
+    template<NumericType N>
     struct Pos 
     {
         N x, y;
     };
 
-    template<Number N>
+    template<NumericType N>
     struct Frame 
     {
         N width, length;
     };
 
-    template<Number N>
+    template<NumericType N>
     struct Pin
     {
         enum class State 
@@ -55,7 +54,7 @@ namespace Circuits
 
     // Abstract class (Interface)
     template <
-        Number N,
+        NumericType N,
         template<typename, typename ...> 
             class InputsType = std::vector
     >
@@ -126,7 +125,7 @@ namespace Circuits
 
     // Basic classes (AND and OR)
     template <
-        Number N,
+        NumericType N,
         template<typename, typename ...> 
             class InputsType = std::vector
     >
@@ -172,7 +171,7 @@ namespace Circuits
     };
 
     template <
-        Number N,
+        NumericType N,
         template<typename, typename ...> 
             class InputsType = std::vector
     >
@@ -218,7 +217,7 @@ namespace Circuits
     };
 
     // Decorator 
-    template<Number N>
+    template<NumericType N>
     class Decorator : public LogicGate<N>
     {
     protected:
@@ -231,7 +230,7 @@ namespace Circuits
     };
 
     // Concrete Decorator (Not)
-    template<Number N>
+    template<NumericType N>
     class Not : public Decorator<N>
     {
     public:
